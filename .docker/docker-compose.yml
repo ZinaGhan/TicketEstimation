@@ -17,7 +17,7 @@ services:
   app:
     build:
       context: ..
-      dockerfile: .docker/Dockerfile  # Dockerfile is still in the .docker folder
+      dockerfile: .docker/Dockerfile  # Dockerfile remains in the .docker folder
     container_name: jira-app
     restart: always
     depends_on:
@@ -27,8 +27,4 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - ../server:/app/server
-
-volumes:
-  postgres-data:
-    driver: local
+      - .:/usr/src/app  # Mount the current directory into the container's /usr/src/app directory

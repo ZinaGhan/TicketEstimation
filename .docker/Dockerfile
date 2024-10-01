@@ -1,22 +1,21 @@
 # Use Node.js for both frontend and backend
 FROM node:16-alpine AS build
 
-# Create app directory
-WORKDIR /app
+# Set the working directory to the project root
+WORKDIR /usr/src/app
 
-# Copy package.json and install dependencies for server only
-COPY ./server/package*.json ./server/
+# Copy the package.json and package-lock.json to the container
+COPY package*.json ./
 
-# Install server dependencies
-WORKDIR /app/server
+# Install dependencies (assumes this handles server dependencies)
 RUN npm install
 
-# Copy server code
-COPY ./server /app/server
+# Copy the entire project into the container
+COPY . .
 
-# Expose necessary ports for server (e.g., 4000 for API)
+# Expose the server's port
 EXPOSE 4000
 
-# Start the server (Node.js backend)
-WORKDIR /app/server
+# Move into the server folder and start the server
+WORKDIR /usr/src/app/server
 CMD ["npm", "run", "start"]
