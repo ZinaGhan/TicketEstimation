@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:15
@@ -13,11 +11,13 @@ services:
       - postgres-data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - app-network
 
   app:
     build:
       context: ..
-      dockerfile: .docker/Dockerfile  # Dockerfile remains in the .docker folder
+      dockerfile: .docker/Dockerfile
     container_name: jira-app
     restart: always
     depends_on:
@@ -27,4 +27,14 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - .:/usr/src/app  # Mount the current directory into the container's /usr/src/app directory
+      - ../server:/app/server
+    networks:
+      - app-network
+
+volumes:
+  postgres-data:
+    driver: local
+
+networks:
+  app-network:
+    driver: bridge

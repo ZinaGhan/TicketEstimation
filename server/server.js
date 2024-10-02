@@ -4,10 +4,17 @@ const cors = require('cors');
 const { DateTime } = require('luxon');
 const bodyParser = require('body-parser');
 const { PrismaClient } = require('@prisma/client');
+const dotenv = require('dotenv');  // Import dotenv to load .env variables
 const app = express();
 const port = 4000;
 
-const prisma = new PrismaClient();
+// Load environment variables from .env file
+dotenv.config();
+
+// Prisma client, using DATABASE_URL and PRISMA_LOG_LEVEL from .env
+const prisma = new PrismaClient({
+    log: [process.env.PRISMA_LOG_LEVEL]  // Setting log level from .env
+});
 
 // Enable CORS for all routes and methods
 app.use(cors({
@@ -19,9 +26,9 @@ app.use(cors({
 // Enable bodyParser middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-// Jira credentials
-const jiraUsername = 'zina.ghannadan@verkstedt.com'; // Replace with your Jira username/email
-const jiraApiToken = 'ATATT3xFfGF0GNO_t6MD5vxIfqIeAPGHkmpsWopFV3Cm-ye0sswbvyAoDu2jh8Auo0a4sc9bq60XIFFfef_7kgCFVtO-3Y_P0OmkLy6PEq9j58lfeoNX5LSU6EHd2zJ0SkJxuYMl_9-AJoWEzaTMAgHTlOIZ38smAFLEr46Bk-zU97PPZkKCBpg=10B2F7BF'; // Replace with your Jira API token
+// Jira credentials from environment variables
+const jiraUsername = process.env.JIRA_USERNAME;
+const jiraApiToken = process.env.JIRA_API_TOKEN;
 
 // Route to fetch Jira issues
 app.get('/api/jira/issues', async (req, res) => {
