@@ -70,6 +70,9 @@ model EffortEstimations {
    ```env
    DATABASE_URL=postgresql://<username>:<password>@postgres-db:5432/<database-name>?schema=public
    PRISMA_LOG_LEVEL=query
+
+   JIRA_USERNAME='*' # E-mail address for Jira account
+   JIRA_API_TOKEN='*' # API Token can be accessed via Jira
    ```
 
 3. **Run Docker Containers**:
