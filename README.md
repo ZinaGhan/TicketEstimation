@@ -77,24 +77,33 @@ model EffortEstimations {
    ```bash
    docker-compose -f .docker/docker-compose.yml up -d
    ```
-
-4. **Install Dependencies**:
+   Rebuilding the docker-compose
+   ```bash
+   docker-compose -f .docker/docker-compose.yml build --no-cache
+   ```
+   Removing the docker-compose
+   ```bash
+   docker-compose -f .docker/docker-compose.yml down
+   ```
+   
+5. **Install Dependencies**:
    Install the required dependencies:
    ```bash
    npm install
    ```
 
-5. **Migrate the Database**:
+6. **Migrate the Database**:
    Apply Prisma migrations to set up the database:
    ```bash
    npx prisma migrate dev --name init
    ```
 
-6. **Start the Application**:
+7. **Start the Application**:
    Run the application:
    ```bash
-   npm start
+   npm run start
    ```
+   Currently really dirty setup, running docker-compose creates container for backend and database and the frontend is running locally with live server :D 
 
 ### API Endpoints
 
