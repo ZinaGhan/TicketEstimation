@@ -103,7 +103,8 @@ model EffortEstimations {
    ```bash
    npm run start
    ```
-   Currently really dirty setup, running docker-compose creates container for backend and database and the frontend is running locally with live server :D 
+   Currently really dirty setup, running docker-compose creates container for backend and database and the frontend is running locally with live server :D
+   So currently you don't need to run the npm command
 
 ### API Endpoints
 
